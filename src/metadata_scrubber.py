@@ -21,10 +21,14 @@ except ImportError:
     PIL_AVAILABLE = False
 
 try:
-    import PyPDF2
-    PYPDF2_AVAILABLE = True
+    import pypdf as pdf_lib
+    PYPDF_AVAILABLE = True
 except ImportError:
-    PYPDF2_AVAILABLE = False
+    try:
+        import PyPDF2 as pdf_lib
+        PYPDF_AVAILABLE = True
+    except ImportError:
+        PYPDF_AVAILABLE = False
 
 
 def extract_image_metadata(filepath: str) -> Dict[str, Any]:
@@ -62,13 +66,13 @@ def extract_image_metadata(filepath: str) -> Dict[str, Any]:
 
 def extract_pdf_metadata(filepath: str) -> Dict[str, Any]:
     """Extracts document properties (Author, Creator, Producer, Dates) from PDF files."""
-    if not PYPDF2_AVAILABLE:
-        raise RuntimeError("PyPDF2 library is required. Install via 'pip install PyPDF2'.")
+    if not PYPDF_AVAILABLE:
+        raise RuntimeError("pypdf library is required. Install via 'pip install pypdf'.")
 
     metadata = {}
     try:
         with open(filepath, "rb") as f:
-            reader = PyPDF2.PdfReader(f)
+            reader = pdf_lib.PdfReader(f)
             metadata["Total_Pages"] = len(reader.pages)
             doc_info = reader.metadata
             if doc_info:
@@ -90,10 +94,15 @@ def scrub_image_metadata(input_path: str, output_path: str) -> bool:
 
     try:
         with Image.open(input_path) as img:
-            data = list(img.getdata())
+            # Create a clean pixel copy without EXIF dictionary
+            if hasattr(img, "get_flattened_data"):
+                data = list(img.get_flattened_data())
+            else:
+                data = list(img.getdata())
             clean_img = Image.new(img.mode, img.size)
             clean_img.putdata(data)
-            clean_img = ImageOps.exif_transpose(img) if hasattr(ImageOps, "exif_transpose") else clean_img
+            if hasattr(ImageOps, "exif_transpose"):
+                clean_img = ImageOps.exif_transpose(clean_img)
             
             # Save image stripped of EXIF info
             clean_img.save(output_path)
@@ -104,12 +113,12 @@ def scrub_image_metadata(input_path: str, output_path: str) -> bool:
 
 def scrub_pdf_metadata(input_path: str, output_path: str) -> bool:
     """Strips metadata document properties from PDF file."""
-    if not PYPDF2_AVAILABLE:
-        raise RuntimeError("PyPDF2 library is required.")
+    if not PYPDF_AVAILABLE:
+        raise RuntimeError("pypdf library is required.")
 
     try:
-        reader = PyPDF2.PdfReader(input_path)
-        writer = PyPDF2.PdfWriter()
+        reader = pdf_lib.PdfReader(input_path)
+        writer = pdf_lib.PdfWriter()
 
         for page in reader.pages:
             writer.add_page(page)
