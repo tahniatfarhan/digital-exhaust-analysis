@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "digital-exhaust-analysis"
+version = "1.0.0"
+description = "Educational Digital Forensics & Metadata Privacy Analysis Utility."
+readme = "README.md"
+authors = [{ name = "Tahniat Farhan", email = "tahniatfarhan@gmail.com" }]
+license = { text = "MIT" }
+requires-python = ">=3.10"
+dependencies = [
+    "Pillow>=10.0.0",
+    "PyPDF2>=3.0.0"
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0"
+]

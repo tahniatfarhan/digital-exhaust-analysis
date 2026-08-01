@@ -1,77 +1,128 @@
-# Digital Exhaust & Metadata Privacy Analysis
+# Digital Exhaust & Metadata Privacy Analysis Toolkit
 
-## Professional Overview
-The **Digital Exhaust & Metadata Privacy Analysis** project investigates the privacy risks, threat vectors, and mitigation techniques associated with file metadata and digital footprint leakage. Developed for the *Cyber Security* degree program at UET Lahore, this project combines analytical research with empirical demonstrations using the **Metadata Anonymisation Toolkit (MAT2)** to demonstrate how sensitive data (GPS coordinates, author names, software specs, device serials) is embedded in files and how it can be systematically sanitized.
+[![Python Forensics CI](https://github.com/tahniatfarhan/digital-exhaust-analysis/actions/workflows/ci.yml/badge.svg)](https://github.com/tahniatfarhan/digital-exhaust-analysis/actions/workflows/ci.yml)
+[![CodeQL Analysis](https://github.com/tahniatfarhan/digital-exhaust-analysis/actions/workflows/codeql.yml/badge.svg)](https://github.com/tahniatfarhan/digital-exhaust-analysis/actions/workflows/codeql.yml)
+[![CWE-200 Information Disclosure](https://img.shields.io/badge/CWE--200-Information_Disclosure-red.svg)](https://cwe.mitre.org/data/definitions/200.html)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Python 3.10+](https://img.shields.io/badge/Python-3.10%2B-blue.svg)](https://www.python.org/)
 
-## Objectives
-- Identify passive digital footprint vectors and privacy risks in everyday document/media files.
-- Evaluate file metadata extraction tools (EXIF tooling) and privacy-enhancing technologies.
-- Demonstrate empirical metadata stripping using MAT2 (Metadata Anonymisation Toolkit v2).
+> 🎓 **Academic Project Disclaimer:** This repository is an **educational laboratory project** developed for the Digital Forensics / Cyber Security course in the BS Cyber Security degree program at UET Lahore. It demonstrates metadata extraction, information disclosure risk auditing (CWE-200 / OWASP WSTG-INFO-005), and EXIF/PDF metadata scrubbing concepts.
 
-## Features
-- **Metadata Threat Analysis**: Exhaustive report examining hidden EXIF, office XML metadata, and revision histories (`Metadata_Privacy_and_MAT2_Report.docx`).
-- **Visual Attack & Defense Presentation**: Professional slide presentation detailing real-world digital footprint tracking scenarios (`Digital Exhaust Presentation.pptx`).
-- **Empirical Scrubbing Screenshots**: Documented evidence of image and document metadata before and after MAT2 anonymization (`cyber_ss.pdf`).
+---
 
-## Technologies Used
-- **Anonymization Toolkit**: MAT2 (Metadata Anonymisation Toolkit v2)
-- **Analysis Tools**: ExifTool, PDF/Office Metadata Analyzers
-- **Domain**: Cyber Security, Privacy Engineering, Digital Forensics
+## 📐 Metadata Audit & Scrubbing Workflow
 
-## Architecture Overview
-The evaluation methodology follows a 3-step privacy verification pipeline:
-1. **Extraction**: Inspect raw document/image metadata to record exposed sensitive attributes.
-2. **Anonymization**: Pass files through MAT2 sanitization engine to scrub non-essential metadata fields.
-3. **Verification**: Re-examine processed files to verify complete metadata elimination without corrupting visual/text contents.
+```mermaid
+sequenceDiagram
+    autonumber
+    actor Analyst as Security Analyst
+    participant CLI as metadata_scrubber.py
+    participant Extractor as EXIF / PDF Metadata Parser
+    participant Sanitizer as Metadata Sanitizer Engine
+    participant Disk as File Storage
 
-## Folder Structure
-```text
+    Analyst->>CLI: Input File (JPEG, PNG, PDF)
+    CLI->>Extractor: Parse EXIF Tags, GPS Coords, Author Properties
+    Extractor-->>Analyst: Output Metadata Audit Findings Report
+    opt User Requests --scrub
+        CLI->>Sanitizer: Strip EXIF / Catalog Properties
+        Sanitizer->>Disk: Save Clean Copy (file_clean.ext)
+        Sanitizer-->>Analyst: Confirmation Report (0 Metadata Leaks Remaining)
+    end
+```
+
+---
+
+## 🛡️ Key Cybersecurity & Privacy Concepts
+
+1. **Digital Exhaust:** Residual data passively generated when using digital devices, smartphones, and software applications (e.g., GPS coordinates, camera serial numbers, device timestamps).
+2. **Information Disclosure (CWE-200):** Unintended exposure of internal network account names, software versions, or physical GPS locations embedded inside public media files.
+3. **Data Minimization & Privacy-by-Design:** Stripping non-essential tracking metadata prior to publishing or sharing files.
+
+---
+
+## 📊 Sample Metadata Extraction & Audit Output
+
+### Image EXIF Leak Audit Sample
+```
+=======================================================
+ METADATA AUDIT REPORT: photo_sample.jpg
+=======================================================
+ Format: JPEG
+ Size: 4032x3024
+ [EXIF_Tags]:
+    - Make: Apple
+    - Model: iPhone 13 Pro
+    - DateTimeOriginal: 2024:05:15 14:22:10
+    - Software: iOS 17.4
+ [GPS_Coordinates]:
+    - GPSLatitudeRef: N
+    - GPSLatitude: 31.5708
+    - GPSLongitudeRef: E
+    - GPSLongitude: 74.3142  (Resolves to Lahore, Pakistan)
+=======================================================
+```
+
+---
+
+## 📁 Repository Structure
+
+```
 digital-exhaust-analysis/
-├── docs/
-│   ├── Metadata_Privacy_and_MAT2_Report.docx
-│   └── Digital Exhaust Presentation.pptx
+├── .github/
+│   ├── dependabot.yml              # Automated monthly dependency scanner
+│   └── workflows/
+│       ├── ci.yml                  # Python test workflow across 3.10, 3.11, 3.12
+│       └── codeql.yml              # CodeQL Application Security Analysis
 ├── assets/
-│   └── screenshots/
-│       └── cyber_ss.pdf
-├── .gitignore
-├── LICENSE
-└── README.md
+│   └── screenshots/                # Project research artifacts
+├── docs/                           # Research papers & presentation slides
+│   ├── Digital Exhaust Presentation.pptx
+│   └── Metadata_Privacy_and_MAT2_Report.docx
+├── src/
+│   └── metadata_scrubber.py        # Python Metadata Audit & Scrubbing CLI Utility
+├── tests/
+│   └── test_scrubber.py            # Automated Pytest Unit Test Suite
+├── CODE_OF_CONDUCT.md              # Contributor Code of Conduct
+├── CONTRIBUTING.md                 # Contribution guidelines
+├── LICENSE                         # MIT License
+├── pyproject.toml                  # Python PEP 517/518 build configuration
+├── README.md                       # Comprehensive Documentation & Forensics Guide
+├── requirements.txt                # Dependencies (Pillow, PyPDF2, pytest)
+└── SECURITY.md                     # Security & Privacy Policy
 ```
 
-## Installation Guide & Usage
-To perform metadata analysis and anonymization using MAT2:
-1. Install MAT2 on Linux/macOS:
+---
+
+## 🛠️ Execution & Testing
+
+### 1. Installation
 ```bash
-sudo apt install mat2
+git clone https://github.com/tahniatfarhan/digital-exhaust-analysis.git
+cd digital-exhaust-analysis
+pip install -r requirements.txt
 ```
-2. Inspect metadata of a target file:
+
+### 2. Audit File Metadata
 ```bash
-mat2 -s target_file.jpg
+python src/metadata_scrubber.py sample_image.jpg
 ```
-3. Scrub metadata cleanly:
+
+### 3. Audit & Scrub Metadata
 ```bash
-mat2 target_file.jpg
+python src/metadata_scrubber.py sample_image.jpg --scrub
+# Output saved to: sample_image_clean.jpg
 ```
 
-## Screenshots & Verification Proof
-- [Empirical Metadata Scrubbing Proof (PDF)](assets/screenshots/cyber_ss.pdf)
-- [Metadata Privacy Full Technical Report (Word)](docs/Metadata_Privacy_and_MAT2_Report.docx)
-- [Digital Exhaust Attack Presentation (PowerPoint)](docs/Digital%20Exhaust%20Presentation.pptx)
+### 4. Run Automated Pytest Suite
+```bash
+pytest -v tests/
+```
 
-## Learning Outcomes
-- Developed deep understanding of file format specifications (JPEG EXIF, PDF dictionary structures, Office OpenXML).
-- Analyzed privacy threats resulting from unintentional location, identity, and system metadata disclosure.
-- Evaluated open-source privacy tooling for automated enterprise metadata sanitization workflows.
+---
 
-## Future Improvements
-- Build an automated Python pipeline for batch metadata stripping across cloud storage buckets.
-- Implement web-based drag-and-drop file sanitization microservice.
-- Research steganographic payload detection within sanitized media files.
+## 📄 License & Author
 
-## License
-Distributed under the MIT License. See `LICENSE` for more information.
+Distributed under the **MIT License**. See [`LICENSE`](LICENSE) for details.
 
-## Author
-**Tahniat Farhan**  
-BS Cyber Security  
-University of Engineering and Technology (UET) Lahore
+**Author:** [Tahniat Farhan](https://github.com/tahniatfarhan) — BS Cyber Security, UET Lahore.
