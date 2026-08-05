@@ -1,10 +1,17 @@
+document.addEventListener('DOMContentLoaded', () => {
+    const filePreset = document.getElementById('file-preset');
+    const btnScrub = document.getElementById('btn-scrub-file');
+    const rawContent = document.getElementById('raw-content');
+    const cleanContent = document.getElementById('clean-content');
 
-function auditMeta() {
-    const out = document.getElementById('exhaustOut');
-    out.innerHTML = `[DIGITAL EXHAUST AUDIT] Target: sample_photo.jpg (CWE-200 Risk Audit)\n----------------------------------------------------------------------------------------\n[CAMERA] Model: iPhone 15 Pro | Exposure: 1/120s | ISO: 100\n[GPS] Latitude: 31.5204° N | Longitude: 74.3587° E (UET Lahore Campus)\n[PRIVACY THREAT] Precise location & device serial number exposed to OSINT gathering!`;
-}
-
-function scrubMeta() {
-    const out = document.getElementById('exhaustOut');
-    out.innerHTML = `[METADATA SCRUBBER] Processing sample_photo.jpg...\n----------------------------------------------------------------------------------------\n[1] Stripping EXIF tag dictionary...\n[2] Rebuilding raw pixel raster data without headers...\n[3] Re-encoding clean JPEG output stream...\n[SUCCESS] Clean file generated: 'sample_photo_clean.jpg' (Zero EXIF tags remaining).`;
-}
+    btnScrub.addEventListener('click', () => {
+        const val = filePreset.value;
+        if (val === 'photo') {
+            rawContent.textContent = "Format: JPEG (1920x1080)\nCamera: Apple iPhone 14 Pro\nGPS Latitude: 31.5204 N\nGPS Longitude: 74.3587 E\nDate/Time: 2026-07-28 14:22:01";
+            cleanContent.textContent = "Format: JPEG (1920x1080)\nEXIF Tags: STRIPPED (0 tags)\nGPS Coordinates: REMOVED\nCamera Hardware ID: REMOVED\nStatus: CLEAN_NO_PRIVACY_LEAK";
+        } else {
+            rawContent.textContent = "Total Pages: 12\nPDF Author: Tahniat Farhan\nProducer: macOS Quartz PDFContext\nCreationDate: D:20260601120000Z";
+            cleanContent.textContent = "Total Pages: 12\nPDF Catalog Properties: CLEARED\nAuthor / Producer Headers: REMOVED\nStatus: CLEAN_DOCUMENT";
+        }
+    });
+});

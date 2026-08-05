@@ -3,106 +3,85 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Digital Exhaust & Metadata Privacy Scrubber - Project Showcase</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <title>Digital Exhaust & Metadata Privacy Analyzer | Tahniat Farhan</title>
+    <meta name="description" content="Educational Python CLI tool auditing and scrubbing EXIF tags, GPS coordinates, and PDF document metadata properties (CWE-200).">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📷</text></svg>">
+    <meta property="og:title" content="Digital Exhaust & Metadata Privacy Scrubber">
+    <meta property="og:description" content="Forensics Privacy Auditor & EXIF / PDF Metadata Scrubber in Python.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://tahniatfarhan.github.io/digital-exhaust-analysis/">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="disclaimer-banner">
-        <i class="fa-solid fa-circle-info"></i> This interactive showcase demonstrates the architecture, workflow, implementation and major features of the original project.
-    </div>
+    <nav class="forensic-nav">
+        <div class="nav-container">
+            <a href="https://github.com/tahniatfarhan" class="nav-back"><i class="fa-solid fa-user-shield"></i> PORTFOLIO</a>
+            <div class="nav-brand"><i class="fa-solid fa-camera-retro"></i> EXIF<span>Scrubber</span></div>
+            <a href="https://github.com/tahniatfarhan/digital-exhaust-analysis" target="_blank" class="nav-github"><i class="fa-brands fa-github"></i> REPO</a>
+        </div>
+    </nav>
 
-    <header class="hero">
-        <div class="container">
-            <div class="badge-group"><span class="badge"><i class="fa-solid fa-python"></i> Python 3.12</span> <span class="badge"><i class="fa-solid fa-camera"></i> Pillow / EXIF</span> <span class="badge"><i class="fa-solid fa-file-pdf"></i> pypdf</span> <span class="badge"><i class="fa-solid fa-vial"></i> Pytest</span></div>
-            <h1>Digital Exhaust & Metadata Privacy Scrubber</h1>
-            <p class="hero-tagline">Educational Python CLI utility auditing and scrubbing EXIF tags, GPS coordinates, and PDF document properties (CWE-200 / OWASP WSTG-INFO-005).</p>
-            <div class="cta-group">
-                <a href="https://github.com/tahniatfarhan/digital-exhaust-analysis" target="_blank" class="btn btn-primary"><i class="fa-brands fa-github"></i> View Source Code</a>
-                <a href="#demo" class="btn btn-secondary"><i class="fa-solid fa-play"></i> Explore Interactive Demo</a>
+    <header class="forensic-hero">
+        <div class="hero-container">
+            <span class="forensic-badge"><i class="fa-solid fa-eye-slash"></i> PRIVACY AUDIT & CWE-200 MITIGATION</span>
+            <h1>Digital Exhaust Analysis</h1>
+            <p class="hero-sub">Python Forensics Utility for Auditing and Scrubbing Sensitive Metadata (EXIF GPS Tags, Camera Serials, PDF Properties) to Prevent Information Disclosure.</p>
+            <div class="hero-btns">
+                <a href="#auditor" class="btn btn-amber"><i class="fa-solid fa-magnifying-glass"></i> Audit Sample File</a>
+                <a href="https://github.com/tahniatfarhan/digital-exhaust-analysis" target="_blank" class="btn btn-outline-amber"><i class="fa-brands fa-github"></i> Source Code</a>
             </div>
         </div>
     </header>
 
-    <section class="container">
-        <h2 class="section-title">Key Engineering Features</h2>
-        <p class="section-subtitle">Core capabilities and technical standards demonstrated in this repository.</p>
-        <div class="grid-cards">
-        <div class="card">
-            <div class="card-icon"><i class="fa-solid fa-camera"></i></div>
-            <h3>EXIF & GPS Audit</h3>
-            <p>Extracts camera details, exposure, serials, and GPS location coordinates.</p>
-        </div>
-    
-        <div class="card">
-            <div class="card-icon"><i class="fa-solid fa-file-pdf"></i></div>
-            <h3>PDF Metadata Stripping</h3>
-            <p>Strips document author properties, creation dates, and tool signatures.</p>
-        </div>
-    
-        <div class="card">
-            <div class="card-icon"><i class="fa-solid fa-user-shield"></i></div>
-            <h3>Privacy Protection</h3>
-            <p>Mitigates information disclosure (CWE-200) and OSINT tracking.</p>
-        </div>
-    </div>
-    </section>
-
-    <section class="container">
-        <h2 class="section-title">System Architecture</h2>
-        <p class="section-subtitle">Structural component workflow and module dependencies.</p>
-        <svg class="svg-diagram" viewBox="0 0 800 200">
-    <rect x="40" y="50" width="180" height="90" rx="8" fill="#131c2e" stroke="#ef4444" stroke-width="2"/>
-    <text x="130" y="90" fill="#fff" font-weight="bold" text-anchor="middle">Sample Image/PDF</text>
-    <text x="130" y="115" fill="#f87171" font-size="12" text-anchor="middle">EXIF & GPS Exposed</text>
-
-    <line x1="220" y1="95" x2="310" y2="95" stroke="#ef4444" stroke-width="2"/>
-
-    <rect x="310" y="50" width="200" height="90" rx="8" fill="#131c2e" stroke="#4ade80" stroke-width="2"/>
-    <text x="410" y="90" fill="#fff" font-weight="bold" text-anchor="middle">Metadata Scrubber</text>
-    <text x="410" y="115" fill="#4ade80" font-size="12" text-anchor="middle">Raster Re-encoding</text>
-
-    <line x1="510" y1="95" x2="600" y2="95" stroke="#4ade80" stroke-width="2"/>
-
-    <rect x="600" y="50" width="160" height="90" rx="8" fill="#131c2e" stroke="#38bdf8" stroke-width="2"/>
-    <text x="680" y="90" fill="#fff" font-weight="bold" text-anchor="middle">Clean Output File</text>
-    <text x="680" y="115" fill="#38bdf8" font-size="12" text-anchor="middle">Zero EXIF Leakage</text>
-</svg>
-    </section>
-
-    <section id="demo" class="container">
-        <h2 class="section-title">Interactive Project Simulator</h2>
-        <p class="section-subtitle">Test and explore the system algorithms and workflows directly in your browser.</p>
-        <div class="demo-window">
-            <div class="demo-header">
-                <div class="window-dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
-                <div class="demo-title">digital-exhaust-analysis — Interactive Workbench</div>
+    <main class="container">
+        <section class="section">
+            <h2 class="sec-title">PRIVACY RISK VECTORS</h2>
+            <div class="grid-3">
+                <div class="forensic-card">
+                    <h3><i class="fa-solid fa-location-dot"></i> EXIF & GPS Coordinates</h3>
+                    <p>Extracts precise latitude/longitude, camera model, lens serials, and exposure timestamps embedded in JPEG/PNG photos.</p>
+                </div>
+                <div class="forensic-card">
+                    <h3><i class="fa-solid fa-file-pdf"></i> PDF Document Catalog</h3>
+                    <p>Audits document metadata tags (Author, Creator, Producer software, operating system signatures, creation dates).</p>
+                </div>
+                <div class="forensic-card">
+                    <h3><i class="fa-solid fa-eraser"></i> Pixel-Preserving Scrub</h3>
+                    <p>Re-encodes image pixel raster data stripped completely of EXIF metadata headers without visual loss.</p>
+                </div>
             </div>
-            <div class="demo-body">
-<div class="control-row">
-    <button class="btn btn-secondary" style="border-color:#f59e0b; color:#f59e0b;" onclick="auditMeta()">Audit Sample Photo EXIF</button>
-    <button class="btn btn-primary" onclick="scrubMeta()">Scrub Metadata & Download Clean File</button>
-</div>
-<div id="exhaustOut" class="terminal-output">$ Select an audit or scrub action...</div>
-</div>
-        </div>
-    </section>
+        </section>
 
-    <section class="container">
-        <details class="engineering-drawer">
-            <summary><i class="fa-solid fa-terminal"></i> Engineering Setup & Build Steps</summary>
-            <div class="drawer-content">
-                <pre><code>pip install -r requirements.txt
-python src/metadata_scrubber.py sample.jpg --scrub</code></pre>
+        <section id="auditor" class="section">
+            <h2 class="sec-title">INTERACTIVE FORENSIC AUDITOR</h2>
+            <div class="forensic-window">
+                <div class="forensic-controls">
+                    <label>Select Sample File Evidence:</label>
+                    <select id="file-preset" class="forensic-select">
+                        <option value="photo">Sample_Photo_GPS_Leaking.jpg (EXIF + GPS)</option>
+                        <option value="pdf">Confidential_Report_2026.pdf (PDF Author Metadata)</option>
+                    </select>
+                    <button id="btn-scrub-file" class="btn btn-amber-full"><i class="fa-solid fa-shield-virus"></i> Audit & Scrub Metadata</button>
+                </div>
+
+                <div class="forensic-report">
+                    <div id="raw-meta" class="report-box">
+                        <div class="rep-title red">RAW UN-SCRUBBED METADATA (CWE-200 LEAK)</div>
+                        <div class="rep-content" id="raw-content">Select file and click Audit...</div>
+                    </div>
+                    <div id="clean-meta" class="report-box">
+                        <div class="rep-title green">CLEAN SCRUBBED FILE REPORT</div>
+                        <div class="rep-content" id="clean-content">Scrubbed status will appear here...</div>
+                    </div>
+                </div>
             </div>
-        </details>
-    </section>
+        </section>
+    </main>
 
-    <footer>
-        <div class="container">
-            <p>© 2026 Tahniat Farhan — BS Cyber Security, UET Lahore | MIT License</p>
-        </div>
+    <footer class="forensic-footer">
+        <p>© 2026 Tahniat Farhan | BS Cyber Security, UET Lahore | <a href="https://github.com/tahniatfarhan/digital-exhaust-analysis" target="_blank">Repository Link</a></p>
     </footer>
 
     <script src="script.js"></script>
